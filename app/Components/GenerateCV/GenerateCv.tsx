@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import PersonalDataComponent from './RightSide/PersonalData';
+import PersonalDataComponent from './RightSide/PersonalData/PersonalData';
 
 const GenerateCvComponent = () => {
 

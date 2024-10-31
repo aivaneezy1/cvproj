@@ -1,28 +1,48 @@
 "use client"
 import { Button } from '@/components/ui/button';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 
 enum FIELDNAME {
     DATEBIRTH = 0,
     PLACEBIRTH = 1,
+    GENDER = 2,
+    NATIONALITY = 3,
+    CIVIL = 4,
+    LICENSE = 5,
 
 }
 const PersonalDataComponent = () => {
-    const [showPersonalData, setShowPersonalData] = useState<boolean>(false)
+    const [showPersonalData, setShowPersonalData] = useState<boolean>(false);
 
     {/*Optional state */ }
-    const [showDateOfBirth, setShowDateBirth] = useState<boolean>(false)
-    const [showPlaceOfBirth, setShowPlaceBirth] = useState<boolean>(false)
+    const [showDateOfBirth, setShowDateBirth] = useState<boolean>(false);
+    const [showPlaceOfBirth, setShowPlaceBirth] = useState<boolean>(false);
+    const [showGender, setShowGender] = useState<boolean>(false);
+    const [showNationality, setShowNationality] = useState<boolean>(false);
+    const [showCivil, setShowCivil] = useState<boolean>(false);
+    const [showLicense, setShowLicense] = useState<boolean>(false);
 
     {/*Optionals hide button */ }
-    const [showDateOfBirthHideButton, setShowDateOfBirthHideButton] = useState<boolean>(false);
-    const [showPlaceOfBirthHideButton, setShowPlaceOfBirthHideButton] = useState<boolean>(false);
+    const [dateOfBirthHideButton, setDateOfBirthHideButton] = useState<boolean>(false);
+    const [placeOfBirthHideButton, setPlaceOfBirthHideButton] = useState<boolean>(false);
+    const [genderHideButton, setGenderHideButton] = useState<boolean>(false);
+    const [nationalityHideButton, setNationalityHideButton] = useState<boolean>(false);
+    const [civilHideButton, setCivilHideButton] = useState<boolean>(false);
+    const [licenseHideButton, setLicenseHideButton] = useState<boolean>(false);
+
+    {/*Reference to close the element if click anywhere in the webpage */ }
+    const buttonContainerRef = useRef<HTMLDivElement>(null);
+
+
+
 
     {/*Show Personal Data */ }
     const handlePersonalData = () => {
         setShowPersonalData(!showPersonalData)
     }
+
+
 
     {/*Show optionals Personal Data */ }
     const handleOptionalsData = (data: string, setShowField: React.Dispatch<React.SetStateAction<boolean>>) => {
@@ -36,15 +56,19 @@ const PersonalDataComponent = () => {
         )
     }
 
-    {/*Render the button to show the field */ }
+    {/*3 dots button  */ }
     const handleRenderOptional = (fieldName: FIELDNAME) => {
 
         const isVisible =
-            (fieldName === FIELDNAME.DATEBIRTH && showDateOfBirthHideButton) ||
-            (fieldName === FIELDNAME.PLACEBIRTH && showPlaceOfBirthHideButton)
+            (fieldName === FIELDNAME.DATEBIRTH && dateOfBirthHideButton) ||
+            (fieldName === FIELDNAME.PLACEBIRTH && placeOfBirthHideButton) ||
+            (fieldName === FIELDNAME.GENDER && genderHideButton) ||
+            (fieldName === FIELDNAME.NATIONALITY && nationalityHideButton) ||
+            (fieldName === FIELDNAME.CIVIL && civilHideButton) ||
+            (fieldName === FIELDNAME.LICENSE && licenseHideButton)
 
         return (
-            <>
+            <div ref={buttonContainerRef}>
                 <button type="button" onClick={() => handleHideOptionalsField(fieldName)}>
                     <svg className='w-4 h-4' xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 128 512">
@@ -68,20 +92,36 @@ const PersonalDataComponent = () => {
                         </div>
                     </div>
                 )}
-            </>
+            </div>
         )
     }
 
-    {/*Toogle the option to remove the field */ }
+    {/*Show remove button if 3 dots is clicked */ }
     const handleHideOptionalsField = (fieldName: FIELDNAME) => {
-        setShowDateOfBirthHideButton(false)
-        setShowPlaceOfBirthHideButton(false)
+        setDateOfBirthHideButton(false);
+        setPlaceOfBirthHideButton(false);
+        setGenderHideButton(false);
+        setNationalityHideButton(false);
+        setCivilHideButton(false);
+        setLicenseHideButton(false);
         switch (fieldName) {
             case FIELDNAME.DATEBIRTH:
-                setShowDateOfBirthHideButton(true);
+                setDateOfBirthHideButton(true);
                 break;
             case FIELDNAME.PLACEBIRTH:
-                setShowPlaceOfBirthHideButton(true);
+                setPlaceOfBirthHideButton(true);
+                break;
+            case FIELDNAME.GENDER:
+                setGenderHideButton(true);
+                break;
+            case FIELDNAME.NATIONALITY:
+                setNationalityHideButton(true);
+                break;
+            case FIELDNAME.CIVIL:
+                setCivilHideButton(true);
+                break;
+            case FIELDNAME.LICENSE:
+                setLicenseHideButton(true);
                 break;
         }
     }
@@ -91,12 +131,51 @@ const PersonalDataComponent = () => {
         switch (fieldName) {
             case FIELDNAME.DATEBIRTH:
                 setShowDateBirth(!showDateOfBirth);
+                setDateOfBirthHideButton(false);
                 break;
             case FIELDNAME.PLACEBIRTH:
                 setShowPlaceBirth(!showPlaceOfBirth);
+                setPlaceOfBirthHideButton(false)
+                break;
+
+            case FIELDNAME.GENDER:
+                setShowGender(!showGender)
+                setGenderHideButton(false)
+                break;
+            case FIELDNAME.NATIONALITY:
+                setShowNationality(!showNationality);
+                setNationalityHideButton(false);
+                break;
+            case FIELDNAME.CIVIL:
+                setShowCivil(!showCivil);
+                setCivilHideButton(false);
+                break;
+            case FIELDNAME.LICENSE:
+                setShowLicense(!showLicense);
+                setLicenseHideButton(false);
                 break;
         }
     }
+
+
+    {/*Event listener for mousedown */ }
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (buttonContainerRef.current && !buttonContainerRef.current.contains(event.target as Node)) {
+                setDateOfBirthHideButton(false);
+                setPlaceOfBirthHideButton(false);
+                setGenderHideButton(false);
+                setNationalityHideButton(false);
+                setCivilHideButton(false);
+                setLicenseHideButton(false);
+            }
+
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [])
 
     return (
         <div>
@@ -161,7 +240,7 @@ const PersonalDataComponent = () => {
                     {/*Optionals field */}
                     {showDateOfBirth && (
                         <div className="flex flex-col">
-                            <div className='flex justify-between relative'>
+                            <div className='flex justify-between relative mt-5'>
                                 <label htmlFor="Dateofbirth" className="mb-1 font-medium">Date of birth</label>
 
                                 {/*Remove field button */}
@@ -174,7 +253,7 @@ const PersonalDataComponent = () => {
 
                     {showPlaceOfBirth && (
                         <div className="flex flex-col">
-                            <div className='flex justify-between relative'>
+                            <div className='flex justify-between relative mt-5'>
                                 <label htmlFor="Placeofbirth" className="mb-1 font-medium">Place of birth</label>
 
                                 {/*Remove field button */}
@@ -185,16 +264,75 @@ const PersonalDataComponent = () => {
                         </div>
                     )}
 
+                    {showGender && (
+                        <div className="flex flex-col">
+                            <div className='flex justify-between relative mt-5'>
+                                <label htmlFor="Gender" className="mb-1 font-medium">Gender</label>
+
+                                {/*Remove field button */}
+                                {handleRenderOptional(2)}
+
+                            </div>
+                            <input id="Gender" type="text" className="border border-gray-300 p-2" />
+                        </div>
+                    )}
+
+
+                    {showNationality && (
+                        <div className="flex flex-col">
+                            <div className='flex justify-between relative mt-5'>
+                                <label htmlFor="Nationality" className="mb-1 font-medium">Nationality</label>
+
+                                {/*Remove field button */}
+                                {handleRenderOptional(3)}
+
+                            </div>
+                            <input id="Nationality" type="text" className="border border-gray-300 p-2" />
+                        </div>
+                    )}
+
+                    {showCivil && (
+                        <div className="flex flex-col">
+                            <div className='flex justify-between relative mt-5'>
+                                <label htmlFor="Civil" className="mb-1 font-medium">Civil Status</label>
+
+                                {/*Remove field button */}
+                                {handleRenderOptional(4)}
+
+                            </div>
+                            <input id="Civil" type="text" className="border border-gray-300 p-2" />
+                        </div>
+                    )}
+
+                    {showLicense && (
+                        <div className="flex flex-col">
+                            <div className='flex justify-between relative mt-5'>
+                                <label htmlFor="License" className="mb-1 font-medium">License</label>
+
+                                {/*Remove field button */}
+                                {handleRenderOptional(5)}
+
+                            </div>
+                            <input id="License" type="text" className="border border-gray-300 p-2" />
+                        </div>
+                    )}
+
+
+
+
 
 
 
 
 
                     {/*Optionals Field*/}
-                    <div className='flex flex-row gap-5'>
+                    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4'>
                         {handleOptionalsData("Date of Birth", setShowDateBirth)}
                         {handleOptionalsData("Place of Birth", setShowPlaceBirth)}
-
+                        {handleOptionalsData("Gender", setShowGender)}
+                        {handleOptionalsData("Nationality", setShowNationality)}
+                        {handleOptionalsData("Civil Status", setShowCivil)}
+                        {handleOptionalsData("License", setShowLicense)}
                     </div>
 
                 </div>
