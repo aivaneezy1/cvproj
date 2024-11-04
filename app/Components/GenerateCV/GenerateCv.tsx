@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import PersonalDataComponent from './RightSide/PersonalData/PersonalData';
-
+import ProfileComponent from './RightSide/Profile/Profile';
 const GenerateCvComponent = () => {
 
     return (
@@ -11,6 +11,7 @@ const GenerateCvComponent = () => {
                 <h2 className="text-xl font-semibold mb-4">Enter Your Details</h2>
                 <form className="space-y-4">
                     <PersonalDataComponent />
+                    <ProfileComponent />
                 </form>
             </div>
 
