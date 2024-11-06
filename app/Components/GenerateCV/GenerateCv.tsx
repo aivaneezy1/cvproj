@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import PersonalDataComponent from './RightSide/PersonalData/PersonalData';
 import ProfileComponent from './RightSide/Profile/Profile';
+import FormationComponent from './RightSide/Formation/FormationComponent';
 const GenerateCvComponent = () => {
 
     return (
@@ -12,6 +13,7 @@ const GenerateCvComponent = () => {
                 <form className="space-y-4">
                     <PersonalDataComponent />
                     <ProfileComponent />
+                    <FormationComponent />
                 </form>
             </div>
 

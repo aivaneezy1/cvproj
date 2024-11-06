@@ -33,7 +33,7 @@ const DefaultElement = (props: any) => (
     <p {...props.attributes} className="my-2">{props.children}</p>
 )
 
-const Leaf = (props: any) => {
+const Leaf = (props: { attributes: any; children: any; leaf: any }) => {
     let { attributes, children, leaf } = props
 
     if (leaf.bold) {
@@ -86,7 +86,7 @@ const toggleMark = (editor: Editor, format: 'bold' | 'italic') => {
     }
 }
 
-export default function BasicEditor() {
+export default function TextEditor() {
     const [editor] = useState(() => withReact(createEditor()))
 
     const renderElement = useCallback((props: { element: { type: string } }) => {
@@ -104,12 +104,12 @@ export default function BasicEditor() {
 
     return (
         <Slate editor={editor} initialValue={initialValue}>
-            <div className="max-w-2xl mx-auto mt-6 border rounded-lg shadow-lg overflow-hidden">
+            <div className="max-w-2xl   border-2 rounded-lg shadow-lg overflow-hidden focus-within:border-blue-300 focus-within:bg-blue-50">
                 <Toolbar />
                 <Editable
                     renderElement={renderElement}
                     renderLeaf={renderLeaf}
-                    className="p-4 min-h-[300px]  text-gray-900 focus:outline-none"
+                    className="p-4 min-h-[200px]  text-gray-900 focus:outline-none"
                     onKeyDown={event => {
                         if (event.key === '`' && event.ctrlKey) {
                             event.preventDefault()

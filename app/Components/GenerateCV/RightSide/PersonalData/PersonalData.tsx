@@ -181,7 +181,8 @@ const PersonalDataComponent = () => {
         <div>
             <hr className='border-t-2 border-gray-600 my-2' />
             <div className='flex flex-row items-center gap-2'>
-                <h1 className={showPersonalData ? 'text-black' : 'text-gray-500'}>
+                <h1 className={`font-bold text-2xl ${showPersonalData ? 'text-black' : 'text-gray-400'}`}>
+
                     Personal Data
                 </h1>
                 <Button className="ml-auto" type="button" onClick={handlePersonalData}>{showPersonalData ? "^" : "+"}</Button>
