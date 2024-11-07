@@ -20,7 +20,11 @@ const FormationComponent = () => {
             <hr className='border-t-2 border-gray-600 my-2' />
 
             {showFormation && (
-                <GeneralForm />
+                <GeneralForm
+                    dataField='Formation'
+                    company='Institute'
+                    city='City'
+                />
             )}
         </div>
     )

@@ -2,7 +2,10 @@
 import React, { useState } from 'react';
 import PersonalDataComponent from './RightSide/PersonalData/PersonalData';
 import ProfileComponent from './RightSide/Profile/Profile';
-import FormationComponent from './RightSide/Formation/FormationComponent';
+import FormationComponent from './RightSide/Career/Formation/FormationComponent';
+import WorkExprComponent from './RightSide/Career/WorkExperience/WorkExprComponent';
+import CompetenceComponent from './RightSide/Skills/Competence/CompetenceComponent';
+import LanguageComponent from './RightSide/Skills/Language/LanguageComponent';
 const GenerateCvComponent = () => {
 
     return (
@@ -14,6 +17,9 @@ const GenerateCvComponent = () => {
                     <PersonalDataComponent />
                     <ProfileComponent />
                     <FormationComponent />
+                    <WorkExprComponent />
+                    <CompetenceComponent />
+                    <LanguageComponent />
                 </form>
             </div>
 
