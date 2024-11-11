@@ -1,8 +1,8 @@
 
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import CvPicture from './CvPicture/CvPicture'
 import Link from 'next/link'
+import RightSideComponent from '../GenerateCV/RightSide/RightSide'
 const HeroComponent = () => {
     return (
         <div className='flex justify-center items-center mt-10 p-5'>
@@ -21,7 +21,7 @@ const HeroComponent = () => {
 
                 {/* Right side of the hero */}
                 <div className='flex-1 mt-10 md:mt-0 '>
-                    <CvPicture />
+                    <RightSideComponent />
                 </div>
             </div>
         </div>
